@@ -1,6 +1,6 @@
 {
   "name": "xtal-match-media",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Custom Element that watches for media matches",
   "main": "xtal-match-media.js",
   "repository": "https://github.com/bahrus/xtal-match-media",
