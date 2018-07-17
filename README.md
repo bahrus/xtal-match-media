@@ -1,8 +1,22 @@
 # \<xtal-match-media\>
 
-Custom Element that watches for media matches
+Vanilla-ish custom Element that watches for media matches
 
 This is similar to Polymer's iron-media-query, but with no legacy dependencies.
+
+Syntax:
+
+```html
+    <div class="vertical-section-container centered">
+        <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+        <script src="https://unpkg.com/p-d.p-u@0.0.37/p-d.p-d-x.p-u.js"></script>
+        <script type="module" src="../xtal-match-media.js"></script>
+      <h3>Basic xtal-match-media demo</h3>
+      <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
+      <p-d on="matches-media-query-changed" to="{innerText}"></p-d>
+      <div></div>
+    </div>
+```
 
 ## Install the Polymer-CLI
 
