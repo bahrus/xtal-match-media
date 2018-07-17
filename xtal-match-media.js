@@ -15,22 +15,17 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
         return this._mediaQueryString;
     }
     set mediaQueryString(val) {
-        this.setAttribute(mediaQueryString, val);
+        this.attr(mediaQueryString, val);
     }
     get matchesMediaQuery() {
         return this._matchesMediaQuery;
     }
     set matchesMediaQuery(val) {
-        if (val) {
-            this.setAttribute(matchesMediaQuery, '');
-        }
-        else {
-            this.removeAttribute(matchesMediaQuery);
-        }
+        this.attr(matchesMediaQuery, val, '');
     }
     static get observedAttributes() {
         return super.observedAttributes.concat([
-            mediaQueryString, matchesMediaQuery
+            mediaQueryString
         ]);
     }
     attributeChangedCallback(name, oldValue, newValue) {
@@ -42,11 +37,11 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
                     this._mql = window.matchMedia(this._mediaQueryString);
                     this._boundMediaQueryHandler = this.handleMediaQueryChange.bind(this);
                     this.connect();
+                    this.updateValue(this._mql.matches);
                 }
                 break;
             case matchesMediaQuery:
-                const val = newValue !== null;
-                this.updateResultProp(val, matchesMediaQuery, '_matchesMediaQuery');
+                this._matchesMediaQuery = newValue != null;
                 break;
         }
     }
@@ -58,14 +53,14 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
             this._mql.removeListener(this._boundMediaQueryHandler);
     }
     handleMediaQueryChange(e) {
-        if (e.matches) {
-            this.setAttribute(matchesMediaQuery, '');
-        }
-        else {
-            this.removeAttribute(matchesMediaQuery);
-        }
-        this.detail = e;
-        this.setResult(e.matches, null);
+        this.updateValue(e.matches);
+    }
+    updateValue(val) {
+        this.value = val;
+        this.matchesMediaQuery = val;
+        this.de(matchesMediaQuery, {
+            value: val
+        });
     }
     connectedCallback() {
         this._upgradeProperties(['mediaQueryString']);

@@ -4,6 +4,7 @@
 		"module":"es2015",
 		"sourceMap": true,
 		"experimentalDecorators": true,
+		"strict": true,
 		"newLine": "LF"
 	},
 	"exclude":[
