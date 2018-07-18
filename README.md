@@ -2,7 +2,11 @@
 
 Vanilla-ish custom Element that watches for media matches
 
-This is similar to Polymer's iron-media-query, but with no legacy dependencies.
+This is similar to Polymer's iron-media-query, but with no legacy dependencies.  It can partake in Polymer binding.
+
+Total file size is ~1kb minified and gzipped.  Not including a common file used by xtal-* components, file size is 660 B minified and gzipped.
+
+
 
 <!--
 ```
