@@ -4,6 +4,24 @@ Vanilla-ish custom Element that watches for media matches
 
 This is similar to Polymer's iron-media-query, but with no legacy dependencies.
 
+<!--
+```
+<custom-element-demo>
+  <template>
+    <div>
+        <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.2/webcomponents-loader.js"></script>
+        <script src="https://unpkg.com/p-d.p-u@0.0.37/p-d.p-d-x.p-u.js"></script>
+        <script type="module" src="https://unpkg.com/xtal-match-media@0.0.1/xtal-match-media.js?module"></script>
+      <h3>Basic xtal-match-media demo</h3>
+      <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
+      <p-d on="matches-media-query-changed" to="{innerText}"></p-d>
+      <div></div>
+    </div>
+  </template>
+</custom-element-demo>
+```
+-->
+
 Syntax:
 
 ```html
