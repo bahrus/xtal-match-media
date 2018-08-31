@@ -1,5 +1,16 @@
 //@ts-check
 (function () {
+  function define(custEl) {
+    var tagName = custEl.is;
+
+    if (customElements.get(tagName)) {
+      console.warn('Already registered ' + tagName);
+      return;
+    }
+
+    customElements.define(tagName, custEl);
+  }
+
   var disabled = 'disabled';
 
   function XtallatX(superClass) {
@@ -20,11 +31,15 @@
         babelHelpers.createClass(_class, [{
           key: "attr",
           value: function attr(name, val, trueVal) {
-            if (val) {
-              this.setAttribute(name, trueVal || val);
-            } else {
-              this.removeAttribute(name);
-            }
+            var v = val ? 'set' : 'remove'; //verb
+
+            this[v + 'Attribute'](name, trueVal || val);
+          }
+        }, {
+          key: "to$",
+          value: function to$(n) {
+            var mod = n % 2;
+            return (n - mod) / 2 + '-' + mod;
           }
         }, {
           key: "incAttr",
@@ -37,7 +52,7 @@
               ec[name] = 0;
             }
 
-            this.attr(name, ec[name].toString());
+            this.attr('data-' + name, this.to$(ec[name]));
           }
         }, {
           key: "attributeChangedCallback",
@@ -91,8 +106,7 @@
         return _class;
       }(superClass)
     );
-  } //# sourceMappingURL=xtal-latx.js.map
-
+  }
 
   var mediaQueryString = 'media-query-string';
   var matchesMediaQuery = 'matches-media-query';
@@ -201,5 +215,5 @@
     return XtalMatchMedia;
   }(XtallatX(HTMLElement));
 
-  customElements.define(XtalMatchMedia.is, XtalMatchMedia); //# sourceMappingURL=xtal-match-media.js.map
+  customElements.define(XtalMatchMedia.is, XtalMatchMedia);
 })();

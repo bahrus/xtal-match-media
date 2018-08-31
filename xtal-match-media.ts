@@ -1,4 +1,5 @@
 import { XtallatX } from 'xtal-latx/xtal-latx.js';
+import {define} from 'xtal-latx/define.js';
 
 const mediaQueryString = 'media-query-string';
 const matchesMediaQuery = 'matches-media-query';
@@ -75,5 +76,4 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
     this.disconnect();
   }
 }
-
-customElements.define(XtalMatchMedia.is, XtalMatchMedia);
+define(XtalMatchMedia);

@@ -1,4 +1,5 @@
 import { XtallatX } from "./node_modules/xtal-latx/xtal-latx.js";
+import { define } from "./node_modules/xtal-latx/define.js";
 var mediaQueryString = 'media-query-string';
 var matchesMediaQuery = 'matches-media-query';
 /**
@@ -106,4 +107,4 @@ function (_XtallatX) {
   return XtalMatchMedia;
 }(XtallatX(HTMLElement));
 
-customElements.define(XtalMatchMedia.is, XtalMatchMedia); //# sourceMappingURL=xtal-match-media.js.map
+define(XtalMatchMedia); //# sourceMappingURL=xtal-match-media.js.map
