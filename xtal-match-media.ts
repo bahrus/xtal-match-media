@@ -1,5 +1,5 @@
-import { XtallatX } from 'xtal-latx/xtal-latx.js';
-import {define} from 'xtal-latx/define.js';
+import { XtallatX } from 'xtal-element/xtal-latx.js';
+import {define} from 'xtal-element/define.js';
 
 const mediaQueryString = 'media-query-string';
 const matchesMediaQuery = 'matches-media-query';
@@ -7,13 +7,13 @@ const matchesMediaQuery = 'matches-media-query';
  * `xtal-match-media`
  * Custom Element that watches for media matches
  *
- * @customElement
- * @polymer
- * @demo demo/index.html
  */
 class XtalMatchMedia extends XtallatX(HTMLElement) {
   static get is() { return 'xtal-match-media'; }
   _mediaQueryString!: string;
+  /**
+   * Media Query String to monitor
+   */
   get mediaQueryString() {
     return this._mediaQueryString;
   }
@@ -24,9 +24,9 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
   get matchesMediaQuery(){
     return this._matchesMediaQuery;
   }
-  set matchesMediaQuery(val: boolean){
-    this.attr(matchesMediaQuery, val, '');
-  }
+  // set matchesMediaQuery(val: boolean){
+  //   this.attr(matchesMediaQuery, val, '');
+  // }
   static get observedAttributes() {
     return super.observedAttributes.concat([
       mediaQueryString
@@ -62,9 +62,10 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
   handleMediaQueryChange(e: MediaQueryList) {
     this.updateValue(e.matches);
   }
+  value = false;
   updateValue(val: boolean){
     this.value = val;
-    this.matchesMediaQuery = val;
+    this._matchesMediaQuery = val;
     this.de(matchesMediaQuery, {
       value: val
     })

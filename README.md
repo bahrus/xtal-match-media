@@ -1,25 +1,30 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/xtal-match-media)
+
+<a href="https://nodei.co/npm/xtal-decorator/"><img src="https://nodei.co/npm/xtal-match-media.png"></a>
+
+<img src="https://badgen.net/bundlephobia/minzip/xtal-match-media">
+
 # \<xtal-match-media\>
 
-Vanilla-ish custom Element that watches for media matches
+Web component that watches for media matches and fires events when they happen.
 
-This is similar to Polymer's iron-media-query, but with no legacy dependencies.  It can partake in Polymer binding.
+This is similar to Polymer's [iron-media-query](https://www.webcomponents.org/element/@polymer/iron-media-query), but with no legacy dependencies.  xtal-match-media can partake in Polymer's powerful binding.
 
-Total file size is ~1kb minified and gzipped.  Not including a common file used by xtal-* components, file size is 660 B minified and gzipped.
+Other alternatives are also available (the more the merrier):  
 
-
+> lit-media-query (https://www.webcomponents.org/element/lit-media-query)
 
 <!--
 ```
 <custom-element-demo>
   <template>
     <div>
-        <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.2/webcomponents-loader.js"></script>
-        <script src="https://unpkg.com/p-d.p-u@0.0.37/p-d.p-d-x.p-u.js"></script>
-        <script type="module" src="https://unpkg.com/xtal-match-media@0.0.1/xtal-match-media.js?module"></script>
-      <h3>Basic xtal-match-media demo</h3>
       <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
-      <p-d on="matches-media-query-changed" to="{innerText}"></p-d>
+      <!-- pass down (p-d) to div's textContent value of xtal-match-media above as it changes -->
+      <p-d on="matches-media-query-changed" prop="textContent"></p-d>
       <div></div>
+      <script type="module" src="https://unpkg.com/p-d.p-u@0.0.105/p-d.js?module"></script>
+        <script type="module" src="../xtal-match-media.js"></script>
     </div>
   </template>
 </custom-element-demo>

@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "tags": [{
+        "name": "xtal-match-media",
+        "description": "Web component that watches for media matches and fires events when they happen.",
+        "attributes": [
+            {
+                "name": "media-query-string",
+                "description": " Media Query String to monitor"
+            }
+        ]
+    }]
+}

@@ -3,14 +3,15 @@
   "version": "0.0.4",
   "description": "Custom Element that watches for media matches",
   "main": "xtal-match-media.js",
+  "module": "xtal-match-media.js",
   "repository": "https://github.com/bahrus/xtal-match-media",
   "author": "bahrus <anderson.bruce.b@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "xtal-latx": "^0.0.20"
+    "xtal-element": "0.0.29"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "jiife": "^0.0.4"
+    "@webcomponents/webcomponentsjs": "2.2.7",
+    "jiife": "0.0.12"
   }
 }

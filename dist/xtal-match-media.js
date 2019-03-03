@@ -6,6 +6,9 @@ const matchesMediaQuery = 'matches-media-query';
  * `xtal-match-media`
  * Custom Element that watches for media matches
  *
+ * @customElement
+ * @polymer
+ * @demo demo/index.html
  */
 class XtalMatchMedia extends XtallatX(HTMLElement) {
     constructor() {
