@@ -12,7 +12,7 @@ This is similar to Polymer's [iron-media-query](https://www.webcomponents.org/el
 
 Other alternatives are also available (the more the merrier):  
 
-> lit-media-query (https://www.webcomponents.org/element/lit-media-query)
+> [lit-media-query](https://www.webcomponents.org/element/lit-media-query)
 
 <!--
 ```
