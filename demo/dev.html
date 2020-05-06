@@ -4,20 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
     <title>xtal-match-media demo</title>
-
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
   </head>
   <body>
     <div>
       <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
       <!-- pass down (p-d) to div's textContent value of xtal-match-media above as it changes -->
-      <p-d on="matches-media-query-changed" prop="textContent"></p-d>
-      <div></div>
-      <script type="module" src="https://unpkg.com/p-d.p-u@0.0.105/p-d.js?module"></script>
-        <script type="module" src="../xtal-match-media.js"></script>
+      <p-d on="matches-media-query-changed" to=[-text-content]></p-d>
+      <div -text-content></div>
+      <script type=module>
+        import "p-et-alia/p-d.js";
+        import "../xtal-match-media.js"
+      </script>
     </div>
   </body>
 </html>

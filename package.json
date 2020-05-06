@@ -7,7 +7,8 @@
   "repository": "https://github.com/bahrus/xtal-match-media",
   "author": "bahrus <anderson.bruce.b@gmail.com>",
   "license": "MIT",
-  "scripts":{
+  "scripts": {
+    "start": "es-dev-server --app-index demo/dev.html --node-resolve --watch --open",
     "doc": "wca analyze xtal-*.js --outFile custom-elements.json"
   },
   "dependencies": {
@@ -15,6 +16,8 @@
     "xtal-element": "0.0.123"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "2.4.3"
+    "@webcomponents/webcomponentsjs": "2.4.3",
+    "es-dev-server": "1.48.1",
+    "p-et-alia": "0.0.74"
   }
 }
