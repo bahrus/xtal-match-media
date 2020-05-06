@@ -1,13 +1,14 @@
 import { XtallatX } from 'xtal-element/xtal-latx.js';
-import { define } from 'xtal-element/define.js';
+import { define } from 'trans-render/define.js';
+import { hydrate } from 'trans-render/hydrate.js';
 const mediaQueryString = 'media-query-string';
 const matchesMediaQuery = 'matches-media-query';
 /**
- * `xtal-match-media`
  * Custom Element that watches for media matches
+ * @element xtal-match-media
  *
  */
-class XtalMatchMedia extends XtallatX(HTMLElement) {
+class XtalMatchMedia extends XtallatX(hydrate(HTMLElement)) {
     constructor() {
         super(...arguments);
         this.value = false;
@@ -25,9 +26,6 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
     get matchesMediaQuery() {
         return this._matchesMediaQuery;
     }
-    // set matchesMediaQuery(val: boolean){
-    //   this.attr(matchesMediaQuery, val, '');
-    // }
     static get observedAttributes() {
         return super.observedAttributes.concat([
             mediaQueryString
@@ -68,7 +66,7 @@ class XtalMatchMedia extends XtallatX(HTMLElement) {
         });
     }
     connectedCallback() {
-        this._upgradeProperties(['mediaQueryString']);
+        this.propUp(['mediaQueryString']);
     }
     disconnectedCallback() {
         this.disconnect();

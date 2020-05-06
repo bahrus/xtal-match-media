@@ -1,0 +1,43 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "xtal-match-media",
+      "path": "./xtal-match-media.js",
+      "description": "Custom Element that watches for media matches",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "Any component that emits events should not do so if it is disabled.\r\nNote that this is not enforced, but the disabled property is made available.\r\nUsers of this mix-in should ensure not to call \"de\" if this property is set to true.",
+          "type": "boolean"
+        }
+      ],
+      "properties": [
+        {
+          "name": "mediaQueryString",
+          "description": "Media Query String to monitor"
+        },
+        {
+          "name": "matchesMediaQuery"
+        },
+        {
+          "name": "value",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "evCount",
+          "description": "Tracks how many times each event type was called.",
+          "type": "{ [key: string]: number; }",
+          "default": "{}"
+        },
+        {
+          "name": "disabled",
+          "attribute": "disabled",
+          "description": "Any component that emits events should not do so if it is disabled.\r\nNote that this is not enforced, but the disabled property is made available.\r\nUsers of this mix-in should ensure not to call \"de\" if this property is set to true.",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}
