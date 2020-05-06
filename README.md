@@ -14,32 +14,19 @@ Other alternatives are also available (the more the merrier):
 
 > [lit-media-query](https://www.webcomponents.org/element/lit-media-query)
 
-<!--
+
+## Sample Syntax
+
+```html
+<xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
 ```
-<custom-element-demo>
-  <template>
-    <div>
-      <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
-      <!-- pass down (p-d) to div's textContent value of xtal-match-media above as it changes -->
-      <p-d on="matches-media-query-changed" prop="textContent"></p-d>
-      <div></div>
-      <script type="module" src="https://unpkg.com/p-d.p-u@0.0.105/p-d.js?module"></script>
-        <script type="module" src="https://unpkg.com/xtal-match-media@0.0.5/xtal-match-media.js?module"></script>
-    </div>
-  </template>
-</custom-element-demo>
-```
--->
 
 
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) and npm (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally.
 
 ## Viewing Your Element
 
 ```
-$ polymer serve
+$ npm install
+$ npm run start
 ```
 
