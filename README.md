@@ -8,7 +8,7 @@
 
 Web component that watches for media matches and fires events when they happen.
 
-This is similar to Polymer's [iron-media-query](https://www.webcomponents.org/element/@polymer/iron-media-query), but with no legacy dependencies.  xtal-match-media can partake in Polymer's powerful binding.
+This is similar to Polymer's [iron-media-query](https://www.webcomponents.org/element/@polymer/iron-media-query).  xtal-match-media can partake in Polymer's binding.
 
 Other alternatives are also available (the more the merrier):  
 
