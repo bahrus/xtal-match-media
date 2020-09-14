@@ -12,12 +12,12 @@
     "doc": "wca analyze xtal-*.js --outFile custom-elements.json"
   },
   "dependencies": {
-    "trans-render": "0.0.168",
-    "xtal-element": "0.0.123"
+    "trans-render": "0.0.257",
+    "xtal-element": "0.0.297"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "2.4.3",
-    "es-dev-server": "1.48.1",
-    "p-et-alia": "0.0.74"
+    "@webcomponents/webcomponentsjs": "2.4.4",
+    "es-dev-server": "1.57.4",
+    "p-et-alia": "0.0.115"
   }
 }

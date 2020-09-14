@@ -1,8 +1,17 @@
-import { XtallatX } from 'xtal-element/xtal-latx.js';
-import { define } from 'trans-render/define.js';
+import { XtallatX, define } from 'xtal-element/xtal-latx.js';
 import { hydrate } from 'trans-render/hydrate.js';
-const mediaQueryString = 'media-query-string';
-const matchesMediaQuery = 'matches-media-query';
+export const linkMediaQueryHandler = ({ disabled, mediaQueryString, self }) => {
+    if (disabled || mediaQueryString === undefined)
+        return;
+    self._mql = window.matchMedia(mediaQueryString);
+    self._boundMediaQueryHandler = self.handleMediaQueryChange.bind(self);
+    self.connect();
+    self.matchesMediaQuery = (self._mql.matches);
+};
+export const linkValue = ({ matchesMediaQuery, self }) => {
+    self.value = matchesMediaQuery;
+};
+export const propActions = [linkMediaQueryHandler, linkValue];
 /**
  * Custom Element that watches for media matches
  * @element xtal-match-media
@@ -11,65 +20,30 @@ const matchesMediaQuery = 'matches-media-query';
 class XtalMatchMedia extends XtallatX(hydrate(HTMLElement)) {
     constructor() {
         super(...arguments);
-        this.value = false;
-    }
-    static get is() { return 'xtal-match-media'; }
-    /**
-     * Media Query String to monitor
-     */
-    get mediaQueryString() {
-        return this._mediaQueryString;
-    }
-    set mediaQueryString(val) {
-        this.attr(mediaQueryString, val);
-    }
-    get matchesMediaQuery() {
-        return this._matchesMediaQuery;
-    }
-    static get observedAttributes() {
-        return super.observedAttributes.concat([
-            mediaQueryString
-        ]);
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case mediaQueryString:
-                this.disconnect();
-                this._mediaQueryString = newValue;
-                if (newValue !== null) {
-                    this._mql = window.matchMedia(this._mediaQueryString);
-                    this._boundMediaQueryHandler = this.handleMediaQueryChange.bind(this);
-                    this.connect();
-                    this.updateValue(this._mql.matches);
-                }
-                break;
-            case matchesMediaQuery:
-                this._matchesMediaQuery = newValue != null;
-                break;
-        }
+        this.propActions = propActions;
     }
     connect() {
-        this._mql.addListener(this._boundMediaQueryHandler);
+        this._mql.addEventListener('change', this._boundMediaQueryHandler);
     }
     disconnect() {
         if (this._mql)
-            this._mql.removeListener(this._boundMediaQueryHandler);
+            this._mql.removeEventListener('change', this._boundMediaQueryHandler);
     }
     handleMediaQueryChange(e) {
-        this.updateValue(e.matches);
-    }
-    updateValue(val) {
-        this.value = val;
-        this._matchesMediaQuery = val;
-        this.de(matchesMediaQuery, {
-            value: val
-        });
+        this.matchesMediaQuery = e.matches;
     }
     connectedCallback() {
-        this.propUp(['mediaQueryString']);
+        this.style.display = 'none';
+        super.connectedCallback();
     }
     disconnectedCallback() {
         this.disconnect();
     }
 }
+XtalMatchMedia.is = 'xtal-match-media';
+XtalMatchMedia.attributeProps = ({ mediaQueryString, matchesMediaQuery, value }) => ({
+    str: [mediaQueryString],
+    bool: [matchesMediaQuery, value],
+    notify: [matchesMediaQuery, value]
+});
 define(XtalMatchMedia);
