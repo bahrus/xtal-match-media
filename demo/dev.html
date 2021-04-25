@@ -6,7 +6,6 @@
     <title>xtal-match-media demo</title>
   </head>
   <body>
-    <div>
       <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
       <!-- pass down (p-d) to div's textContent value of xtal-match-media above as it changes -->
       <p-d on="matches-media-query-changed" to=[-text-content]></p-d>
@@ -23,9 +22,8 @@
         }
     </script>
     <script type=module>
-        import '../xtal-match-media2.js';
+        import '../xtal-match-media.js';
         import 'pass-down/p-d.js';
     </script>
-    </div>
   </body>
 </html>

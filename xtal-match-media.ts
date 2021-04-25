@@ -1,65 +1,114 @@
-import { XtallatX, define, AttributeProps } from 'xtal-element/xtal-latx.js';
-import {hydrate} from 'trans-render/hydrate.js';
-
-export const linkMediaQueryHandler = ({disabled, mediaQueryString, self}: XtalMatchMedia) => {
-  if(disabled || mediaQueryString === undefined) return;
-  self._mql = window.matchMedia(mediaQueryString);
-  self._boundMediaQueryHandler = self.handleMediaQueryChange.bind(self);
-  self.connect();
-  self.matchesMediaQuery = (self._mql.matches);
-}
-export const linkValue = ({matchesMediaQuery, self}: XtalMatchMedia) => {
-  self.value = matchesMediaQuery;
-}
-export const propActions = [linkMediaQueryHandler, linkValue];
+import {xc, IReactor, PropAction, PropDef, PropDefMap, ReactiveSurface} from 'xtal-element/lib/XtalCore.js';
 
 /**
  * Custom Element that watches for media matches
  * @element xtal-match-media
  *
  */
-class XtalMatchMedia extends XtallatX(hydrate(HTMLElement)) {
-  static is = 'xtal-match-media';
-  static attributeProps = ({mediaQueryString, matchesMediaQuery, value}: XtalMatchMedia) => ({
-    str:[mediaQueryString],
-    bool: [matchesMediaQuery, value],
-    notify: [matchesMediaQuery, value]
-  } as AttributeProps);
-  /**
-   * Media Query String to monitor
-   */
+export class XtalMatchMedia extends HTMLElement implements ReactiveSurface{
+    static is = 'xtal-match-media';
+    self = this;
+    propActions = propActions;
+    reactor: IReactor = new xc.Rx(this);
 
-  mediaQueryString: string | undefined;
+    /**
+    * Media Query String to monitor
+    */
+    mediaQueryString: string | undefined; 
 
-  matchesMediaQuery: boolean | undefined;
-  value: boolean | undefined;
-  _boundMediaQueryHandler!: (e: MediaQueryListEvent) => void;
-  _mql: MediaQueryList | undefined;
+    value: boolean | undefined;
+    matchesMediaQuery: boolean | undefined;
+    disabled: boolean | undefined;
+    networkInformation: any;
+    deviceMemory: number | undefined;
 
-  propActions = propActions;
+    mediaQueryHandler = (e: MediaQueryListEvent) => {
+        this.matchesMediaQuery = e.matches;
+    }
+    connect(){
+        this.disconnect();
+        this._mql!.addEventListener('change', this.mediaQueryHandler);
+    }
+    disconnect(){
+        if(this._mql) this._mql.removeEventListener('change', this.mediaQueryHandler);
+    }
+    _mql: MediaQueryList | undefined;
 
-  connect() {
-    this.disconnect();
-    this._mql!.addEventListener('change', this._boundMediaQueryHandler);
-  }
-  disconnect() {
-    if (this._mql) this._mql.removeEventListener('change', this._boundMediaQueryHandler);
-  }
-  handleMediaQueryChange(e: MediaQueryListEvent) {
-    this.matchesMediaQuery = e.matches;
-  }
-  connectedCallback(){
-    this.style.display = 'none';
-    super.connectedCallback();
-  }
-  disconnectedCallback() {
-    this.disconnect();
-  }
+    connectedCallback(){
+        this.style.display = 'none';
+        xc.hydrate(this, slicedPropDefs);
+        this.networkInformation = (<any>navigator).connection;
+        this.deviceMemory = (<any>navigator).deviceMemory;
+    }
+    disconnectedCallback(){
+        this.disconnect();
+    }
+    onPropChange(n: string, prop: PropDef, nv: any){
+        this.reactor.addToQueue(prop, nv);
+    }
 }
-define(XtalMatchMedia);
 
-// declare global {
-//   interface HTMLElementTagNameMap {
-//       "xtal-match-media": XtalMatchMedia,
-//   }
-// }
+type X =XtalMatchMedia;
+
+export const linkMql = ({disabled, mediaQueryString, self}: X) => {
+    self._mql = window.matchMedia(mediaQueryString!);
+    self.matchesMediaQuery = self._mql.matches;
+    self.connect();
+}
+
+const propActions = [linkMql] as PropAction[];
+
+const baseProp: PropDef = {
+    dry: true,
+    async: true,
+};
+const strProp1: PropDef = {
+    ...baseProp,
+    type: String,
+    stopReactionsIfFalsy: true,
+}
+const boolProp1: PropDef = {
+    ...baseProp,
+    type: Boolean
+}
+const boolProp2: PropDef = {
+    ...boolProp1,
+    notify: true,
+}
+const objProp1: PropDef = {
+    ...baseProp,
+    type: Object,
+    notify: true,
+    stopNotificationIfFalsy: true
+}
+const numProp1: PropDef = {
+    ...baseProp,
+    type: Number,
+    reflect: true,
+    stopNotificationIfFalsy: true,
+}
+const propDefMap: PropDefMap<X> = {
+    mediaQueryString: strProp1,
+    value: boolProp2,
+    matchesMediaQuery: {
+        ...boolProp2,
+        echoTo: 'value'
+    },
+    disabled: {
+        ...boolProp1,
+        stopReactionsIfTruthy: true,
+    },
+    networkInformation: objProp1,
+    deviceMemory: numProp1,
+};
+
+const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
+xc.letThereBeProps(XtalMatchMedia, slicedPropDefs, 'onPropChange');
+
+xc.define(XtalMatchMedia);
+
+declare global {
+    interface HTMLElementTagNameMap {
+        "xtal-match-media": XtalMatchMedia,
+    }
+}
