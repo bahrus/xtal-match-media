@@ -21,7 +21,7 @@ Other alternatives are also available (the more the merrier):
 <xtal-match-media media-query-string="(max-width: 800px)"></xtal-match-media>
 ```
 
-
+xtal-match-media also provides network connection and device memory information.
 
 ## Viewing Your Element
 
