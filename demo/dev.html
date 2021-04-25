@@ -11,10 +11,21 @@
       <!-- pass down (p-d) to div's textContent value of xtal-match-media above as it changes -->
       <p-d on="matches-media-query-changed" to=[-text-content]></p-d>
       <div -text-content></div>
-      <script type=module>
-        import "p-et-alia/p-d.js";
-        import "../xtal-match-media.js"
-      </script>
+      <script type=importmap>
+        {
+            "imports": {
+                "xtal-element/": "../node_modules/xtal-element/",
+                "trans-render/": "../node_modules/trans-render/",
+                "pass-down/": "../node_modules/pass-down/",
+                "on-to-me/": "../node_modules/on-to-me/",
+                "mut-obs/": "../node_modules/mut-obs/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../xtal-match-media2.js';
+        import 'pass-down/p-d.js';
+    </script>
     </div>
   </body>
 </html>

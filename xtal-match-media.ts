@@ -39,6 +39,7 @@ class XtalMatchMedia extends XtallatX(hydrate(HTMLElement)) {
   propActions = propActions;
 
   connect() {
+    this.disconnect();
     this._mql!.addEventListener('change', this._boundMediaQueryHandler);
   }
   disconnect() {
@@ -57,8 +58,8 @@ class XtalMatchMedia extends XtallatX(hydrate(HTMLElement)) {
 }
 define(XtalMatchMedia);
 
-declare global {
-  interface HTMLElementTagNameMap {
-      "xtal-match-media": XtalMatchMedia,
-  }
-}
+// declare global {
+//   interface HTMLElementTagNameMap {
+//       "xtal-match-media": XtalMatchMedia,
+//   }
+// }
