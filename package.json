@@ -16,6 +16,6 @@
   },
   "devDependencies": {
     "pass-down": "0.0.28",
-    "xtal-test": "0.0.50"
+    "xtal-test": "0.0.57"
   }
 }
